@@ -70,8 +70,10 @@ ban_dev=""
 ban_vlanallow=""
 ban_vlanblock=""
 ban_uplink=""
+ban_abuseipdb_token=""
 ban_fetchcmd=""
 ban_fetchparm=""
+ban_fetchparm_abuseipdb=""
 ban_fetchinsecure=""
 ban_fetchretry="5"
 ban_rdapparm=""
@@ -96,6 +98,7 @@ f_system() {
 	ban_packages="$("${ban_ubuscmd}" -S call rpc-sys packagelist '{ "all": true }' 2>/dev/null)"
 	ban_memory="$("${ban_awkcmd}" '/^MemAvailable/{printf "%s",int($2/1000)}' "/proc/meminfo" 2>/dev/null)"
 	ban_ver="$(printf "%s" "${ban_packages}" | "${ban_jsoncmd}" -ql1 -e '@.packages.banip')"
+	ban_abuseipdb_token="$(uci_get banip global ban_abuseipdb_token)"
 	ban_sysver="$("${ban_ubuscmd}" -S call system board 2>/dev/null | "${ban_jsoncmd}" -ql1 -e '@.model' -e '@.release.description' |
 		"${ban_awkcmd}" 'BEGIN{RS="";FS="\n"}{printf "%s, %s",$1,$2}')"
 	if [ -z "${ban_cores}" ]; then
@@ -928,8 +931,23 @@ f_down() {
 		# handle normal downloads
 		#
 		else
-			feed_log="$("${ban_fetchcmd}" ${ban_fetchparm} "${tmp_load}" "${feed_url}" 2>&1)"
-			feed_rc="${?}"
+            if [ "${feed_url}" = "https://api.abuseipdb.com/api/v2/blacklist" && "${ban_fetchcmd}" = "curl" ];then
+				if [ -n "${ban_abuseipdb_token}" && "${ban_abuseipdb_token}" != "0" ]; then
+					#
+					# since 'ban_fetchparm' uses many settings from the ui which may not work for this very specific and certain case
+					# we will not override this variable for this specific feed, instead we use 'ban_fetchparm_abuseipdb'
+					#
+					$ban_fetchparm_abuseipdb = "-G https://api.abuseipdb.com/api/v2/blacklist -d confidenceMinimum=90 -H \"Key: ${ban_abuseipdb_token}\" -H \"Accept: text/plain\""
+
+					feed_log="$("${ban_fetchcmd}" ${ban_fetchparm_abuseipdb} "${tmp_load}" "${feed_url}" 2>&1)"
+			  		feed_rc="${?}"
+				else
+					f_log "err" "abuseipdb feed selected!, but no token has been set!."
+				fi
+			else
+				feed_log="$("${ban_fetchcmd}" ${ban_fetchparm} "${tmp_load}" "${feed_url}" 2>&1)"
+				feed_rc="${?}"
+			fi
 		fi
 	fi
 	[ "${feed_rc}" != "0" ] && f_log "info" "download for feed '${feed}' failed (rc: ${feed_rc:-"-"}/log: ${feed_log})"
