@@ -1,0 +1,3 @@
+[submodule "net/l2-isolation"]
+	path = net/l2-isolation
+	url = https://github.com/xize/l2-isolation
