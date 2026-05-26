@@ -3,8 +3,9 @@
 # shellcheck shell=busybox
 
 case "$PKG_NAME" in
-python3-tabulate|\
-python3-tabulate-src)
+rpcbind)
+	# The -v flag is implemented in version 1.2.8+
+	# rpcbind -v 2>&1 | grep -F "$PKG_VERSION"
 	exit 0
 	;;
 

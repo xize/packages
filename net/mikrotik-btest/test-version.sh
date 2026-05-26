@@ -3,8 +3,8 @@
 # shellcheck shell=busybox
 
 case "$PKG_NAME" in
-python3-tabulate|\
-python3-tabulate-src)
+mikrotik-btest)
+	# Do not provide version information
 	exit 0
 	;;
 

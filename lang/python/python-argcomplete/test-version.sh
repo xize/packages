@@ -1,10 +1,7 @@
 #!/bin/sh
-
-# shellcheck shell=busybox
-
+#
 case "$1" in
-libcap-ng|\
-libcap-ng-bin)
+python3-argcomplete|python3-argcomplete-src)
 	exit 0
 	;;
 *)

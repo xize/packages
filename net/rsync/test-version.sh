@@ -3,9 +3,13 @@
 # shellcheck shell=busybox
 
 case "$PKG_NAME" in
-python3-tabulate|\
-python3-tabulate-src)
+rrsync|\
+rsyncd)
 	exit 0
+	;;
+
+rsync)
+	rsync --version | grep -F "$PKG_VERSION"
 	;;
 
 *)

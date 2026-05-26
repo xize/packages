@@ -3,8 +3,7 @@
 # shellcheck shell=busybox
 
 case "$PKG_NAME" in
-python3-tabulate|\
-python3-tabulate-src)
+libwacom)
 	exit 0
 	;;
 
