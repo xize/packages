@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sniproxy
-PKG_VERSION:=0.7.0
-PKG_RELEASE:=2
+PKG_VERSION:=0.6.0
+PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=https://github.com/dlundquist/sniproxy/
+PKG_SOURCE_URL:=https://github.com/dlundquist/sniproxy/archive/
 PKG_SOURCE:=$(PKG_VERSION).tar.gz
-PKG_MD5SUM:=89596d669127b838cc79898e0c810720
+PKG_MD5SUM:=bcfb5d1efe045b8b356a4229f2339f02
 
 PKG_MAINTAINER:=Philipp Kern <pkern@debian.org>
 
@@ -17,7 +17,7 @@ define Package/sniproxy
   CATEGORY:=Network
   TITLE:=Transparent TLS and HTTP layer 4 proxy with SNI support
   URL:=https://github.com/dlundquist/sniproxy
-  DEPENDS:=+libev +libpcre2
+  DEPENDS:=+libev +libpcre
 endef
 
 define Package/sniproxy/description
