@@ -17,7 +17,7 @@ define Package/sniproxy
   CATEGORY:=Network
   TITLE:=Transparent TLS and HTTP layer 4 proxy with SNI support
   URL:=https://github.com/dlundquist/sniproxy
-  DEPENDS:=+libev +libpcre
+  DEPENDS:=+libev +libpcre2
 endef
 
 define Package/sniproxy/description
