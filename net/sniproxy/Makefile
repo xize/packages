@@ -4,7 +4,7 @@ PKG_NAME:=sniproxy
 PKG_VERSION:=0.7.0
 PKG_RELEASE:=2
 
-PKG_SOURCE_URL:=https://github.com/dlundquist/sniproxy/
+PKG_SOURCE_URL:=https://github.com/dlundquist/sniproxy/archive/
 PKG_SOURCE:=$(PKG_VERSION).tar.gz
 PKG_MD5SUM:=89596d669127b838cc79898e0c810720
 
