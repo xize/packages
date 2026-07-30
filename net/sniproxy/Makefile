@@ -8,7 +8,7 @@ PKG_SOURCE_URL:=https://github.com/dlundquist/sniproxy/archive/
 PKG_SOURCE:=$(PKG_VERSION).tar.gz
 PKG_MD5SUM:=89596d669127b838cc79898e0c810720
 
-PKG_MAINTAINER:=Philipp Kern <pkern@debian.org>
+PKG_MAINTAINER:=Philipp Kern <pkern@debian.org>, Guido Lucassen <glucassen@live.nl>
 
 include $(INCLUDE_DIR)/package.mk
 
